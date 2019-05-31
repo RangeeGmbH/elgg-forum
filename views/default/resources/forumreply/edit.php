@@ -10,8 +10,8 @@
  */
 
 forum_push_breadcrumbs($vars);
-$title = elgg_echo("forumtopic:edit");
-$content = elgg_view_form("forumtopic/save", array(), $vars);
+$title = elgg_echo("forumreply:edit");
+$content = elgg_view_form("forumreply/save", array(), $vars);
 $params = array(
     "title"   => $title,
     "content" => $content

@@ -22,16 +22,15 @@ if ($guid) {
 $title = get_input("title");
 $description = get_input("description");
 $access_id = get_input("access_id");
-$forumreply->title = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 $forumreply->description = $description;
 $forumreply->access_id = ACCESS_PUBLIC;
 $forumreply->save();
 
 elgg_create_river_item(array(
-    'view' => 'river/object/forumreply/create',
-    'action_type' => 'create',
+    'view'         => 'river/object/forumreply/create',
+    'action_type'  => 'create',
     'subject_guid' => $forumreply->owner_guid,
-    'object_guid' => $forumreply->getGUID(),
+    'object_guid'  => $forumreply->getGUID(),
 ));
 
 elgg_trigger_event('publish', 'object', $forumreply);

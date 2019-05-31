@@ -23,6 +23,7 @@ function forum_init() {
     elgg_register_page_handler("forum", "forum_page_handler");
     elgg_register_page_handler("forumcategory", "forumcategory_page_handler");
     elgg_register_page_handler("forumtopic", "forumtopic_page_handler");
+    elgg_register_page_handler("forumreply", "forumreply_page_handler");
 
     // Register actions
     $plugins_path = elgg_get_plugins_path();

@@ -72,7 +72,7 @@ switch ($view_type) {
         $summary = elgg_view('object/elements/summary', $params);
 
         echo elgg_view('object/elements/full', array(
-            'entity' => $blog,
+            'entity' => $entity,
             'summary' => $summary,
             'icon' => $owner_icon,
             'body' => $body,

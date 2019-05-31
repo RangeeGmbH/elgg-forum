@@ -58,3 +58,12 @@ function forumtopic_page_handler($page) {
             break;
     }
 }
+
+function forumreply_page_handler($page) {
+    $page['subtype'] = "forumreply";
+    switch ($page[0]) {
+        case "edit":
+            echo elgg_view_resource("forumreply/edit", $page);
+            break;
+    }
+}

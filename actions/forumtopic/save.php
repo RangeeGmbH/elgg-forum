@@ -14,8 +14,10 @@ if ($guid) {
     if (elgg_instanceof($entity, "object", "forum")) {
         $forumtopic = new ForumTopic;
         $forumtopic->container_guid = $guid;
-    } elseif (!elgg_instanceof($entity, "object", "forumtopic")) {
-        return true;
+    } elseif (elgg_instanceof($entity, "object", "forumtopic")) {
+        $forumtopic = $entity;
+    } else {
+        return false;
     }
 }
 
@@ -29,10 +31,10 @@ $forumtopic->access_id = $access_id;
 $forumtopic->save();
 
 elgg_create_river_item(array(
-    'view' => 'river/object/forumtopic/create',
-    'action_type' => 'create',
+    'view'         => 'river/object/forumtopic/create',
+    'action_type'  => 'create',
     'subject_guid' => $forumtopic->owner_guid,
-    'object_guid' => $forumtopic->getGUID(),
+    'object_guid'  => $forumtopic->getGUID(),
 ));
 
 elgg_trigger_event('publish', 'object', $forumtopic);

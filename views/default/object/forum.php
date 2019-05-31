@@ -30,7 +30,7 @@ switch ($view_type) {
         if (!elgg_in_context('widgets')) {
             $metadata = elgg_view_menu('entity', array(
                 'entity' => $entity,
-                'handler' => 'forumtopic',
+                'handler' => 'forum',
                 'sort_by' => 'priority',
                 'class' => 'elgg-menu-hz',
             ));
@@ -57,7 +57,7 @@ switch ($view_type) {
         if (!elgg_in_context('widgets')) {
             $metadata = elgg_view_menu('entity', array(
                 'entity' => $entity,
-                'handler' => 'forumtopic',
+                'handler' => 'forum',
                 'sort_by' => 'priority',
                 'class' => 'elgg-menu-hz',
             ));
@@ -72,7 +72,7 @@ switch ($view_type) {
         $summary = elgg_view('object/elements/summary', $params);
 
         echo elgg_view('object/elements/full', array(
-            'entity' => $blog,
+            'entity' => $entity,
             'summary' => $summary,
             'icon' => $owner_icon,
             'body' => $body,
