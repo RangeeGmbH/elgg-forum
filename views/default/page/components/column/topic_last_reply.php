@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * Elgg Forum Plugin
+ *
+ * Provides forum functionality for Elgg
+ *
+ * @author  Shane Barron <clifton@sbarron.com>
+ *
+ */
+$item = elgg_extract("item", $vars);
+$view_type = elgg_extract("view_type", $vars);
+echo elgg_list_entities(array(
+    "type" => "object",
+    "subtype" => "forumreply",
+    "container_guid" => $item->getGUID(),
+    "limit" => 1,
+    "order_by" => "time_created",
+    "order_by_reverse" => true,
+    "pagination" => false,
+    "view_type" => "compact",
+    "class" => "max200 min200"
+));
