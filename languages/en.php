@@ -49,6 +49,7 @@ return array(
     'forumtopic:widget:title'           => 'Forum Topics',
     'forumtopic:widget:description'     => 'Displays your latest forum topics',
     'item:object:forum'                 => 'Forums',
-    'item:object:forumcategory'         => 'Forum Topics',
-    'item:object:forumtopic'            => 'Forum Topics'
+    'item:object:forumcategory'         => 'Forum Category',
+    'item:object:forumtopic'            => 'Forum Topics',
+    'item:object:forumreply'            => 'Forum Reply'
 );
