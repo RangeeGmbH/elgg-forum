@@ -8,12 +8,14 @@
  * @author  Shane Barron <clifton@sbarron.com>
  *
  */
-class ForumCategory extends ElggObject {
+class ForumCategory extends ElggObject
+{
 
-    protected function initializeAttributes() {
+    protected function initializeAttributes()
+    {
         parent::initializeAttributes();
 
-        $this->attributes['subtype'] = "forumcategory";
+        $this->attributes['subtype'] = 'forumcategory';
     }
 
 }

@@ -15,9 +15,9 @@ if (!$forum_reply_edit_timeout) {
 }
 
 echo elgg_view_field(array(
-    "#label" => "Reply Edit Timeout",
-    "#type" => "text",
-    "#help" => "How long users will be allowed to edit or delete their replies in minutes.  Enter 0 for no timeout.",
-    "value" => $forum_reply_edit_timeout,
-    "name" => "params[forum_reply_edit_timeout]"
+    '#label' => 'Reply Edit Timeout',
+    '#type'  => 'text',
+    '#help'  => 'How long users will be allowed to edit or delete their replies in minutes.  Enter 0 for no timeout.',
+    'value'  => $forum_reply_edit_timeout,
+    'name'   => 'params[forum_reply_edit_timeout]'
 ));

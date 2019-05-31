@@ -13,25 +13,25 @@ elgg_register_event_handler('init', 'system', 'forum_init');
 function forum_init()
 {
     // Create menu item
-    $item = new ElggMenuItem("forum", elgg_echo("forum:forums"), "forumcategory/all");
-    elgg_register_menu_item("site", $item);
+    $item = new ElggMenuItem('forum', elgg_echo('forum:forums'), 'forumcategory/all');
+    elgg_register_menu_item('site', $item);
 
     // Register and load libraries
-    elgg_register_library("forum_page_handlers", elgg_get_plugins_path() . "forum/lib/page_handlers.php");
-    elgg_load_library("forum_page_handlers");
+    elgg_register_library('forum_page_handlers', elgg_get_plugins_path() . 'forum/lib/page_handlers.php');
+    elgg_load_library('forum_page_handlers');
 
     // Register page handlers
-    elgg_register_page_handler("forum", "forum_page_handler");
-    elgg_register_page_handler("forumcategory", "forumcategory_page_handler");
-    elgg_register_page_handler("forumtopic", "forumtopic_page_handler");
-    elgg_register_page_handler("forumreply", "forumreply_page_handler");
+    elgg_register_page_handler('forum', 'forum_page_handler');
+    elgg_register_page_handler('forumcategory', 'forumcategory_page_handler');
+    elgg_register_page_handler('forumtopic', 'forumtopic_page_handler');
+    elgg_register_page_handler('forumreply', 'forumreply_page_handler');
 
     // Register actions
     $plugins_path = elgg_get_plugins_path();
-    elgg_register_action("forum/save", $plugins_path . "forum/actions/forum/save.php", "admin");
-    elgg_register_action("forumcategory/save", $plugins_path . "forum/actions/forumcategory/save.php", "admin");
-    elgg_register_action("forumtopic/save", $plugins_path . "forum/actions/forumtopic/save.php");
-    elgg_register_action("forumreply/save", $plugins_path . "forum/actions/forumreply/save.php");
+    elgg_register_action('forum/save', $plugins_path . 'forum/actions/forum/save.php', 'admin');
+    elgg_register_action('forumcategory/save', $plugins_path . 'forum/actions/forumcategory/save.php', 'admin');
+    elgg_register_action('forumtopic/save', $plugins_path . 'forum/actions/forumtopic/save.php');
+    elgg_register_action('forumreply/save', $plugins_path . 'forum/actions/forumreply/save.php');
 
     // Register plugin hook handlers
     elgg_register_plugin_hook_handler('register', 'menu:entity', 'forum_entity_menu_setup');
@@ -47,7 +47,7 @@ function forum_init()
 
     // Make things likeable
     elgg_register_plugin_hook_handler('likes:is_likable', 'object:forumreply', 'Elgg\Values::getTrue');
-    elgg_register_plugin_hook_handler("likes:is_likable", "object:forumtopic", "Elgg\Values::getTrue");
+    elgg_register_plugin_hook_handler('likes:is_likable', 'object:forumtopic', "Elgg\Values::getTrue");
 
     // Register entity types for search
     elgg_register_entity_type('object', 'forumcategory');
@@ -57,7 +57,7 @@ function forum_init()
 
 function forum_set_url($hook, $type, $url, $params)
 {
-    $entity = elgg_extract("entity", $params);
+    $entity = elgg_extract('entity', $params);
     if (elgg_instanceof($entity, 'object', 'forumcategory')) {
         $friendly_title = elgg_get_friendly_title($entity->getDisplayName());
 
@@ -76,7 +76,7 @@ function forum_set_url($hook, $type, $url, $params)
     if (elgg_instanceof($entity, 'object', 'forumreply')) {
         $container = get_entity($entity->container_guid);
 
-        return "forumtopic/view/" . $container->getGUID() . "/#forumreply_" . $entity->getGUID();
+        return 'forumtopic/view/' . $container->getGUID() . '/#forumreply_' . $entity->getGUID();
     }
 }
 
@@ -89,48 +89,48 @@ function forum_entity_menu_setup($hook, $type, $return, $params)
     $entity = $params['entity'];
     $handler = elgg_extract('handler', $params, false);
     $handlers = array(
-        "forumcategory",
-        "forum",
-        "forumtopic",
-        "forumreply"
+        'forumcategory',
+        'forum',
+        'forumtopic',
+        'forumreply'
     );
     if (!in_array($handler, $handlers)) {
         return $return;
     }
-    if (elgg_instanceof($entity, "object", "forumcategory")) {
+    if (elgg_instanceof($entity, 'object', 'forumcategory')) {
         $options = array(
             'name'     => 'add_forum',
-            'text'     => elgg_echo("forum:add"),
-            'href'     => "forum/add/" . $entity->guid,
-            'priority' => 150,
+            'text'     => elgg_echo('forum:add'),
+            'href'     => 'forum/add/' . $entity->guid,
+            'priority' => 150
         );
         $return[] = ElggMenuItem::factory($options);
     }
-    if (elgg_instanceof($entity, "object", "forum")) {
+    if (elgg_instanceof($entity, 'object', 'forum')) {
         $url = $entity->getURL();
-        $item = new ElggMenuItem("topic_count", elgg_echo("forum:count:topics", array(forum_count_topics($entity))),
+        $item = new ElggMenuItem('topic_count', elgg_echo('forum:count:topics', array(forum_count_topics($entity))),
             $url);
         array_unshift($return, $item);
-        $item = new ElggMenuItem("reply_count", elgg_echo("forum:count:replies", array(forum_count_replies($entity))),
+        $item = new ElggMenuItem('reply_count', elgg_echo('forum:count:replies', array(forum_count_replies($entity))),
             $url);
         array_unshift($return, $item);
     }
-    if (elgg_instanceof($entity, "object", "forumtopic")) {
+    if (elgg_instanceof($entity, 'object', 'forumtopic')) {
         $url = $entity->getURL();
-        $item = new ElggMenuItem("reply_count",
-            elgg_echo("forumtopic:count:replies", array(topic_count_replies($entity))), $url);
+        $item = new ElggMenuItem('reply_count',
+            elgg_echo('forumtopic:count:replies', array(topic_count_replies($entity))), $url);
         array_unshift($return, $item);
-        $item = new ElggMenuItem("topic_view", elgg_echo("forumtopic:count:views", array(topic_count_views($entity))),
+        $item = new ElggMenuItem('topic_view', elgg_echo('forumtopic:count:views', array(topic_count_views($entity))),
             $url);
         array_unshift($return, $item);
     }
-    if (elgg_instanceof($entity, "object", "forumreply")) {
-        $timeout = elgg_get_plugin_setting("forum_reply_edit_timeout", "forum");
+    if (elgg_instanceof($entity, 'object', 'forumreply')) {
+        $timeout = elgg_get_plugin_setting('forum_reply_edit_timeout', 'forum');
         if (!$timeout) {
             $timeout = 0;
         }
         $remove = array(
-            "access",
+            'access'
         );
         foreach ($return as $key => $value) {
             $name = $value->getName();
@@ -138,7 +138,7 @@ function forum_entity_menu_setup($hook, $type, $return, $params)
                 unset($return[$key]);
             }
             if (!elgg_is_admin_logged_in()) {
-                if ($name == "edit" || $name == "delete") {
+                if ($name === 'edit' || $name === 'delete') {
                     if ($timeout != 0) {
                         $time_created = $entity->time_created;
                         $time = time();
@@ -160,11 +160,11 @@ function forum_set_icon_url($hook, $type, $url, $params)
     $size = elgg_extract('size', $params, 'large');
     $subtype = $entity->getSubType();
     $forum_subtypes = array(
-        "forum",
-        "forumtopic"
+        'forum',
+        'forumtopic'
     );
     if (in_array($subtype, $forum_subtypes)) {
-        $url = elgg_get_site_url() . ("mod/forum/graphics/icons/{$size}.png");
+        $url = elgg_get_site_url() . "mod/forum/graphics/icons/{$size}.png";
         $url = elgg_trigger_plugin_hook('file:icon:url', 'override', $params, $url);
 
         return $url;
@@ -175,10 +175,10 @@ function topic_count_replies($topic)
 {
 
     return elgg_get_entities(array(
-        "type"           => "object",
-        "subtype"        => "forumreply",
-        "container_guid" => $topic->getGuid(),
-        "count"          => true
+        'type'           => 'object',
+        'subtype'        => 'forumreply',
+        'container_guid' => $topic->getGuid(),
+        'count'          => true
     ));
 }
 
@@ -190,26 +190,26 @@ function topic_count_views($topic)
 function forum_count_topics($forum)
 {
     return elgg_get_entities(array(
-        "type"           => "object",
-        "subtype"        => "forumtopic",
-        "container_guid" => $forum->getGUID(),
-        "count"          => true
+        'type'           => 'object',
+        'subtype'        => 'forumtopic',
+        'container_guid' => $forum->getGUID(),
+        'count'          => true
     ));
 }
 
 function forum_count_replies($forum)
 {
     $forumtopics = elgg_get_entities(array(
-        "type"           => "object",
-        "subtype"        => "forumtopic",
-        "container_guid" => $forum->getGUID(),
+        'type'           => 'object',
+        'subtype'        => 'forumtopic',
+        'container_guid' => $forum->getGUID()
     ));
     foreach ($forumtopics as $topic) {
         $count += elgg_get_entities(array(
-            "type"           => "object",
-            "subtype"        => "forumreply",
-            "container_guid" => $topic->getGUID(),
-            "count"          => true
+            'type'           => 'object',
+            'subtype'        => 'forumreply',
+            'container_guid' => $topic->getGUID(),
+            'count'          => true
         ));
     }
 
@@ -218,41 +218,41 @@ function forum_count_replies($forum)
 
 function forum_push_breadcrumbs($vars)
 {
-    elgg_push_breadcrumb(elgg_echo("forum:forums"), "forumcategory/all");
+    elgg_push_breadcrumb(elgg_echo('forum:forums'), 'forumcategory/all');
     switch ($vars['subtype']) {
-        case "forum":
+        case 'forum':
             switch ($vars[0]) {
-                case "add":
-                    elgg_push_breadcrumb(elgg_echo("forum:add"), "forumcategory/add/" . $vars[1]);
+                case 'add':
+                    elgg_push_breadcrumb(elgg_echo('forum:add'), 'forumcategory/add/' . $vars[1]);
                     break;
-                case "view":
+                case 'view':
                     $guid = $vars[1];
                     $forum = get_entity($guid);
                     $category = get_entity($forum->container_guid);
                     elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()), $category->getURL());
                     elgg_push_breadcrumb(elgg_get_excerpt($forum->getDisplayName()), $forum->getURL());
                     break;
-                case "edit":
+                case 'edit':
                     $guid = $vars[1];
                     $forum = get_entity($guid);
                     $category = get_entity($forum->container_guid);
                     elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()), $category->getURL());
                     elgg_push_breadcrumb(elgg_get_excerpt($forum->getDisplayName()), $forum->getURL());
-                    elgg_push_breadcrumb(elgg_echo("forum:edit"), $forum->getURL());
+                    elgg_push_breadcrumb(elgg_echo('forum:edit'), $forum->getURL());
                     break;
             }
             break;
-        case "forumtopic":
+        case 'forumtopic':
             switch ($vars[0]) {
-                case "add":
+                case 'add':
                     $guid = $vars[1];
                     $forum = get_entity($guid);
                     $category = get_entity($forum->container_guid);
                     elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()), $category->getURL());
                     elgg_push_breadcrumb(elgg_get_excerpt($forum->getDisplayName()), $forum->getURL());
-                    elgg_push_breadcrumb(elgg_echo("forum:topic:add"), $forum->getURL());
+                    elgg_push_breadcrumb(elgg_echo('forum:topic:add'), $forum->getURL());
                     break;
-                case "view":
+                case 'view':
                     $guid = $vars[1];
                     $forum = get_entity($guid);
                     $category = get_entity($forum->container_guid);
@@ -261,22 +261,22 @@ function forum_push_breadcrumbs($vars)
                     break;
             }
             break;
-        case "forumcategory":
+        case 'forumcategory':
             switch ($vars[0]) {
-                case "add":
-                    elgg_push_breadcrumb(elgg_echo("forumcategory:add"), "forumcategory/add/" . $vars[1]);
+                case 'add':
+                    elgg_push_breadcrumb(elgg_echo('forumcategory:add'), 'forumcategory/add/' . $vars[1]);
                     break;
-                case "view":
+                case 'view':
                     $guid = $vars[1];
                     $category = get_entity($guid);
                     elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()),
-                        "forumcategory/view/" . $vars[1]);
+                        'forumcategory/view/' . $vars[1]);
                     break;
-                case "edit":
+                case 'edit':
                     $guid = $vars[1];
                     $category = get_entity($guid);
                     elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()), $category->getURL());
-                    elgg_push_breadcrumb(elgg_echo("forumcategory:edit"), "forumcategory/edit/" . $guid);
+                    elgg_push_breadcrumb(elgg_echo('forumcategory:edit'), 'forumcategory/edit/' . $guid);
                     break;
             }
             break;

@@ -12,39 +12,40 @@ forum_push_breadcrumbs($vars);
 $guid = elgg_extract(1, $vars);
 
 $forumtopic = get_entity($guid);
-if (!elgg_instanceof($forumtopic, "object", "forumtopic")) {
+if (!elgg_instanceof($forumtopic, 'object', 'forumtopic')) {
     return true;
 }
 $content = elgg_view_entity($forumtopic, array(
-    "view_type" => "full"
-        ));
+    'view_type' => 'full'
+));
 $content .= elgg_list_entities(array(
-    "type" => "object",
-    "subtype" => "forumreply",
-    "container_guid" => $guid,
-    "list_type" => "table",
-    "order_by" => "time_created",
-    "offset" => get_input("offset", 0),
-    "columns" => array(
-        elgg()->table_columns->item(elgg_echo("forum:replies")),
-        elgg()->table_columns->fromView("forum_owner_block", elgg_echo("forum:author"), array('class' => 'min200 max200'))
+    'type'           => 'object',
+    'subtype'        => 'forumreply',
+    'container_guid' => $guid,
+    'list_type'      => 'table',
+    'order_by'       => 'time_created',
+    'offset'         => get_input('offset', 0),
+    'columns'        => array(
+        elgg()->table_columns->item(elgg_echo('forum:replies')),
+        elgg()->table_columns->fromView('forum_owner_block', elgg_echo('forum:author'),
+            array('class' => 'min200 max200'))
     )
-        ));
+));
 if (elgg_is_logged_in()) {
-    $content .= elgg_view_form("forumreply/save", array(), $vars);
+    $content .= elgg_view_form('forumreply/save', array(), $vars);
 } else {
-    $content .= elgg_echo("forum:reply:login");
+    $content .= elgg_echo('forum:reply:login');
 }
 
 $forum = get_entity($forumtopic->container_guid);
 
-$sidebar = elgg_view("sidebar/forumtopic/view", array(
-    "guid" => $forum->getGUID()
-        ));
+$sidebar = elgg_view('sidebar/forumtopic/view', array(
+    'guid' => $forum->getGUID()
+));
 $params = array(
-    "title" => $title,
-    "content" => $content,
-    "sidebar" => $sidebar
+    'title'   => $title,
+    'content' => $content,
+    'sidebar' => $sidebar
 );
-$body = elgg_view_layout("one_sidebar", $params);
+$body = elgg_view_layout('one_sidebar', $params);
 echo elgg_view_page($params['title'], $body);

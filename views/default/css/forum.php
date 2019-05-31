@@ -9,11 +9,13 @@
  */
 ?>
 
-/* <style> /**/
+/*
+<style> /**/
 
     .min200 {
-        min-width:200px;
+        min-width: 200px;
     }
+
     .max200 {
-        max-width:200px;
+        max-width: 200px;
     }
