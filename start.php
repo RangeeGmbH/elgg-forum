@@ -220,6 +220,25 @@ function forum_push_breadcrumbs($vars)
 {
     elgg_push_breadcrumb(elgg_echo('forum:forums'), 'forumcategory/all');
     switch ($vars['subtype']) {
+        case 'forumcategory':
+            switch ($vars[0]) {
+                case 'add':
+                    elgg_push_breadcrumb(elgg_echo('forumcategory:add'), 'forumcategory/add/' . $vars[1]);
+                    break;
+                case 'view':
+                    $guid = $vars[1];
+                    $category = get_entity($guid);
+                    elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()),
+                        'forumcategory/view/' . $vars[1]);
+                    break;
+                case 'edit':
+                    $guid = $vars[1];
+                    $category = get_entity($guid);
+                    elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()), $category->getURL());
+                    elgg_push_breadcrumb(elgg_echo('forumcategory:edit'), 'forumcategory/edit/' . $guid);
+                    break;
+            }
+            break;
         case 'forum':
             switch ($vars[0]) {
                 case 'add':
@@ -254,29 +273,37 @@ function forum_push_breadcrumbs($vars)
                     break;
                 case 'view':
                     $guid = $vars[1];
-                    $forum = get_entity($guid);
+                    $topic = get_entity($guid);
+                    $forum = get_entity($topic->container_guid);
                     $category = get_entity($forum->container_guid);
                     elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()), $category->getURL());
                     elgg_push_breadcrumb(elgg_get_excerpt($forum->getDisplayName()), $forum->getURL());
-                    break;
-            }
-            break;
-        case 'forumcategory':
-            switch ($vars[0]) {
-                case 'add':
-                    elgg_push_breadcrumb(elgg_echo('forumcategory:add'), 'forumcategory/add/' . $vars[1]);
-                    break;
-                case 'view':
-                    $guid = $vars[1];
-                    $category = get_entity($guid);
-                    elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()),
-                        'forumcategory/view/' . $vars[1]);
+                    elgg_push_breadcrumb(elgg_get_excerpt($topic->getDisplayName()), $forum->getURL());
                     break;
                 case 'edit':
                     $guid = $vars[1];
-                    $category = get_entity($guid);
+                    $topic = get_entity($guid);
+                    $forum = get_entity($topic->container_guid);
+                    $category = get_entity($forum->container_guid);
                     elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()), $category->getURL());
-                    elgg_push_breadcrumb(elgg_echo('forumcategory:edit'), 'forumcategory/edit/' . $guid);
+                    elgg_push_breadcrumb(elgg_get_excerpt($forum->getDisplayName()), $forum->getURL());
+                    elgg_push_breadcrumb(elgg_get_excerpt($topic->getDisplayName()), $forum->getURL());
+                    elgg_push_breadcrumb(elgg_echo('forumtopic:edit'), $forum->getURL());
+                    break;
+            }
+            break;
+        case 'forumreply':
+            switch ($vars[0]) {
+                case 'edit':
+                    $guid = $vars[1];
+                    $reply = get_entity($guid);
+                    $topic = get_entity($reply->container_guid);
+                    $forum = get_entity($topic->container_guid);
+                    $category = get_entity($forum->container_guid);
+                    elgg_push_breadcrumb(elgg_get_excerpt($category->getDisplayName()), $category->getURL());
+                    elgg_push_breadcrumb(elgg_get_excerpt($forum->getDisplayName()), $forum->getURL());
+                    elgg_push_breadcrumb(elgg_get_excerpt($topic->getDisplayName()), $forum->getURL());
+                    elgg_push_breadcrumb(elgg_echo('forumreply:edit'), $forum->getURL());
                     break;
             }
             break;
