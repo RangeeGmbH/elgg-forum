@@ -15,6 +15,9 @@ $forumtopic = get_entity($guid);
 if (!elgg_instanceof($forumtopic, 'object', 'forumtopic')) {
     return true;
 }
+
+$title = $forumtopic->getDisplayName();
+
 $content = elgg_view_entity($forumtopic, array(
     'view_type' => 'full'
 ));

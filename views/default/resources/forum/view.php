@@ -26,6 +26,9 @@ if (elgg_is_logged_in()) {
         'link_class' => 'elgg-button elgg-button-action'
     ));
 }
+
+$title = $forum->getDisplayName();
+
 $content = elgg_view_entity($forum, array(
     'view_type' => 'full'
 ));

@@ -18,6 +18,8 @@ if (!elgg_instanceof($forumcategory, 'object', 'forumcategory')) {
     return true;
 }
 
+$title = $forumcategory->getDisplayName();
+
 $content = elgg_view_entity($forumcategory, array(
     'view_type' => 'full'
 ));
