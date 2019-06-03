@@ -21,7 +21,7 @@ if ($guid) {
         ));
     }
     if (elgg_instanceof($entity, 'object', 'forumtopic')) {
-        $label = elgg_echo('forutopic:reply');
+        $label = elgg_echo('forumtopic:reply');
         echo elgg_view('input/hidden', array(
             'name'  => 'container_guid',
             'value' => $guid

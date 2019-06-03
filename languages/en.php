@@ -28,7 +28,6 @@ return array(
     'forumtopic:latest:reply'           => 'Latest&nbsp;Reply',
     'forumreply:edit'                   => 'Edit a reply',
     'forumtopic:reply:button'           => 'Reply',
-    'forutopic:reply'                   => 'Reply',
     'forum:joined'                      => 'Joined',
     'forum:reply:login'                 => 'Please login to reply.',
     'forumreply:replies'                => 'Replies: ',
