@@ -35,9 +35,8 @@ $title = elgg_view('output/url', array(
 ));
 
 $params = array(
-    'entity'   => $entity,
+    'entity'   => $owner,
     'title'    => $title,
-    'metadata' => '',
     'subtitle' => $subtitle
 );
 $params += $vars;
