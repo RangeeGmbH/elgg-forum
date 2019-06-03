@@ -26,13 +26,8 @@ $subtitle = "$owner_link $date";
 switch ($view_type) {
     default:
         $icon_size = 'small';
-        if (!elgg_in_context('widgets')) {
-            $metadata = elgg_view_menu('entity', array(
-                'entity'  => $entity,
-                'handler' => 'forumreply',
-                'sort_by' => 'priority',
-                'class'   => 'elgg-menu-hz'
-            ));
+        if (elgg_in_context('widgets')) {
+            $metadata = false;
         }
         $content = $entity->description;
         break;
