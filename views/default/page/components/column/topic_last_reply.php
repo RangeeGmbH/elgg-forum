@@ -16,7 +16,7 @@ echo elgg_list_entities(array(
     'container_guid'   => $item->getGUID(),
     'limit'            => 1,
     'order_by'         => 'time_created',
-    'order_by_reverse' => true,
+    'reverse_order_by' => true,
     'pagination'       => false,
     'view_type'        => 'compact',
     'class'            => 'max200 min200'

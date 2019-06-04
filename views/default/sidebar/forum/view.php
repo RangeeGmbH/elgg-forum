@@ -17,7 +17,7 @@ $content = elgg_list_entities(array(
     'subtype'          => 'forumtopic',
     'comtainer_guid'   => $category->guid,
     'order_by'         => 'time_created',
-    'order_by_reverse' => true,
+    'reverse_order_by' => true,
     'view_type'        => 'compact',
     'pagination'       => false
 ));

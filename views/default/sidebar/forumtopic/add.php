@@ -19,6 +19,6 @@ $content = elgg_list_entities(array(
     'pagination'       => false,
     'view_type'        => 'compact',
     'order_by'         => 'time_created',
-    'order_by_reverse' => true
+    'reverse_order_by' => true
 ));
 echo elgg_view_module('aside', $title, $content);

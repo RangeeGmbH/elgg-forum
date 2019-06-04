@@ -14,7 +14,7 @@ $content = elgg_list_entities(array(
     'subtype'          => 'forumtopic',
     'view_type'        => 'compact',
     'order_by'         => 'time_created',
-    'order_by_reverse' => true,
+    'reverse_order_by' => true,
     'limit'            => 5,
     'pagination'       => false
 ));
