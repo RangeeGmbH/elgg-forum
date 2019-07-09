@@ -12,7 +12,7 @@ admin_gatekeeper();
 $guid = get_input('guid');
 if ($guid) {
     $forumcategory = get_entity($guid);
-    if (!elgg_instance_of($forumcategory, 'object', 'forumcategory')) {
+    if (!elgg_instanceof($forumcategory, 'object', 'forumcategory')) {
         return false;
     }
 } else {
