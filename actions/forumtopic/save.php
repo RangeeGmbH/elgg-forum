@@ -41,4 +41,4 @@ elgg_trigger_event('publish', 'object', $forumtopic);
 
 system_message(elgg_echo('forum:forumtopic:saved'));
 
-forward('forumcategory/all');
+forward("forumtopic/view/" . $forumtopic->getGUID());
