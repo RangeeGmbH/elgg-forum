@@ -21,7 +21,7 @@ if ($guid) {
     }
 }
 
-$title = get_input('title');
+$title = get_input('title', '', false);
 $description = get_input('description');
 $access_id = get_input('access_id');
 
